@@ -73,16 +73,15 @@ void let_go(const char *fn, go_t *h)
 			gb = kh_val(h, k) = calloc(1, sizeof(gb));
 			goto next;
 		}
-		if (strncmp(ks.s, "name: ", 6) == 0)
+		if (term)
 		{
-			if (term) gb->name = strdup(ks.s + 6);
-			goto next;
-		}
-		if (strncmp(ks.s, "namespace: ", 11) == 0)
-		{
-			if (term) gb->namespace = strdup(ks.s + 11);
-			term = false;
-			goto next;
+			if (strncmp(ks.s, "name: ", 6) == 0)
+				gb->name = strdup(ks.s + 6);
+			else if (strncmp(ks.s, "namespace: ", 11) == 0)
+			{
+				gb->namespace = strdup(ks.s + 11);
+				term = false;
+			}
 		}
 next:
 		ks.l = 0;
