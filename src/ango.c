@@ -93,15 +93,15 @@ next:
 
 void eat_egg(const char *fn, sg_t *h)
 {
-	/* 0  UNK.EB99@1648030|U-6
-	 * 1  UNK.EB99
-	 * 2  4564
-	 * 3  3
-	 * 4  2
-	 * 5  4572.M8A7B3,4565.A0A3B6IUU0,4565.A0A3B6HP43
-	 * 6  empty or not
-	 * 7  empty or not
-	 * 8  GO:0006351|100.00;GO:0065003|66.67
+	/* 0  OG name           UNK.EB99@1648030|U-6
+	 * 1  protein cluster   UNK.EB99
+	 * 2  taxonomic level   4564
+	 * 3  # proteins        3
+	 * 4  # species         2
+	 * 5  List of proteins  4572.M8A7B3,4565.A0A3B6IUU0,4565.A0A3B6HP43
+	 * 6  KEGG KO terms     empty or not
+	 * 7  KEGG KO symbols   empty or not
+	 * 8  GO slim terms     GO:0006351|100.00;GO:0065003|66.67
 	 * */
 	khint_t k;
 	int i = 0, j = 0;
