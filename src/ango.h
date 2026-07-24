@@ -53,4 +53,5 @@ char *kzgets(char *buf, int siz, gzFile fp) { return gzgets(fp, buf, siz); }
 void let_go(const char *fn, go_t *h);
 void eat_egg(const char *fn, sg_t *h);
 void map_go(const char *in, const go_t *g, const sg_t *s, const char *out);
+void chkfile(int num, ...);
 void usage();

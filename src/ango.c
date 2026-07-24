@@ -25,9 +25,7 @@ int main(int argc, char *argv[])
 		else if (c == ':') error("Missing option argument: -%c", opt.opt ? opt.opt : ':');
 		else error("Unknown option encountered");
 	}
-	if (access(arg.in, R_OK)) error("Can't access file [%s]", arg.in);
-	if (access(arg.go, R_OK)) error("Can't access file [%s]", arg.go);
-	if (access(arg.egg, R_OK)) error("Can't access file [%s]", arg.egg);
+	chkfile(3, arg.in, arg.go, arg.egg);
 	go_t *g = go_init();
 	sg_t *s = sg_init();
 	let_go(arg.go, g);
@@ -174,6 +172,23 @@ void map_go(const char *in, const go_t *g, const sg_t *s, const char *out)
 	fclose(fp);
 }
 
+void chkfile(int num, ...)
+{
+	int i;
+	va_list valist;
+	va_start(valist, num);
+	for (i = 0; i < num; ++i)
+	{
+		char *fn = va_arg(valist, char *);
+		if (access(fn, R_OK))
+		{
+			va_end(valist);
+			error("Error accessing required file [%s]\n", fn);
+		}
+	}
+	va_end(valist);
+}
+
 void horiz(int n, bool bold)
 {
 	struct winsize w;
@@ -186,9 +201,9 @@ void horiz(int n, bool bold)
 
 void usage()
 {
-	int w = 66;
+	int w = 58;
 	horiz(w, 1);
-	fprintf(stderr, "Annotate reference ID with Gene Ontology information\n");
+	fprintf(stderr, "Annotate reference ID list with Gene Ontology information\n");
 	horiz(w, 0);
 	fprintf(stderr, "Usage: \033[31m%s\033[0m -i <in> -o <out> -g <go.odo> -e <egg>\n", __progname);
 	fprintf(stderr, "Options:\n");
